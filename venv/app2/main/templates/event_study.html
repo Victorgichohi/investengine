@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block content %}
+<LINK REL=StyleSheet HREF="static/css/stylesheet.css" TYPE="text/css" MEDIA=screen>
+<div id="sidebar">
+  <span>Select Date Range</span>
+  </br>
+    <label for="from">From</label>
+    <input type="text" id="from" name="from">
+    <label for="to">to</label>
+    <input type="text" id="to" name="to">
+  </br>
+  <span></span>
+      <div class="form-group">
+        <label for="sel1">Select symbols (hold shift to select multiple):</label>
+        <select multiple class="form-control" id="sel1">
+      <br>
+    {% for stock in stock_symbols %}
+     
+     <option name="stock" value="{{ stock }}">{{ stock }}</option>
+   
+
+     
+      </br>
+
+  {% endfor %}
+        </select>
+      </div> 
+  
+
+  <button type="button" id="query">View Plot</button>
+
+</div>
+  <div id="loading-div-background">
+    <div id="loading-div" class="ui-corner-all" >
+      <img style="height:64px;margin:10px;" src="static/css/images/282.GIF" alt="Loading.."/>
+      <h3 style="color:gray;font-weight:normal;">Loading....</h3>
+    </div>
+  </div>
+  <div id="container1" style="width:70%; height:400px;">
+
+</div>
+<script type="text/javascript">
+    $(function() {
+  $( "#from" ).datepicker({
+  defaultDate: "-1y",
+  dateFormat: 'yy, mm, dd',
+  changeMonth: true,
+  numberOfMonths: 3,
+  onClose: function( selectedDate ) {
+  $( "#from" ).datepicker( "option", "minDate", selectedDate );
+  }
+  });
+  $( "#to" ).datepicker({
+  defaultDate: "-1y",
+  dateFormat: 'yy, mm, dd',
+  changeMonth: true,
+  numberOfMonths: 3,
+  onClose: function( selectedDate ) {
+  $( "#to" ).datepicker( "option", "maxDate", selectedDate );
+  }
+  });
+  });
+  
+$("#loading-div-background").css({ opacity: 0.7 });
+
+$("#query").click(function() {  
+
+  $("#loading-div-background").show();
+  $("#container1").hide();
+
+
+  var start_date = $('input:text[name=from]').val();
+  var stop_date = $('input:text[name=to]').val();
+  var price_change_low = $('input:text[name=price_change_low]').val();
+  var price_change_high = $('input:text[name=price_change_high]').val();
+
+  $('input:checkbox[name=stock]:checked').each(function(){
+    stocks.push($(this).val());
+  });
+
+  var qu = {
+
+    "start_date":start_date,
+    "stop_date":stop_date,
+    "price_change_low":price_change_low,
+    "price_change_high":price_change_high
+
+  }
+
+  $.ajax({
+    type: "POST",
+    async:true,
+    contentType: "application/json; charset=utf-8",
+    url: "/study",
+    data: JSON.stringify(qu),
+    success: function (data) {     
+     var graph = $("#container1");
+     graph.html(data);   
+     $("#loading-div-background").hide();      
+     $("#container1").show();
+   },
+   dataType: "html"
+ });
+});
+</script>
+
+{% endblock %}

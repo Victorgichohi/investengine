@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+  #sidebar
+  {
+  float: left;
+  width: 20%;
+  border:2px solid #a1a1a1;
+  padding:10px 20px; 
+  border-radius:15px;
+  }
+
+.container1 
+{
+  width: 940px;
+  margin: 0 auto;
+}
+
+#container1 {
+    float: right;
+    width: 75%;
+}   
+
+.params{
+  font-size: .7em;
+  color: #999;
+
+}
+
+
+
+#loading-div-background 
+{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    background:black;
+    width:100%;
+    height:100%;
+ }
+
+#loading-div
+{
+ width: 300px;
+ height: 200px;
+ background-color: #0c0b0b;
+ text-align:center;
+ position:absolute;
+ left: 50%;
+ top: 50%;
+ margin-left:-150px;
+ margin-top: -100px;
+} 
+</style>
+<div id="sidebar">
+  <span>Select symbols</span>
+ 
+ <br>
+<form method="post">
+<input type="checkbox" name="stocks" value="AAPL">Eaagads
+<br>
+<input type="checkbox" name="stocks" value="GLD">Kakuzi
+ <br/> 
+  <br/>
+  <button type="button" id="query">View Plot</button>
+  <br/>
+</form>
+</div>
+<div id="loading-div-background">
+  <div id="loading-div" class="ui-corner-all" >
+    <img style="height:64px;margin:10px;" src="static/css/images/282.GIF" alt="Loading.."/>
+    <h3 style="color:gray;font-weight:normal;">Loading....</h3>
+  </div>
+</div>
+<div id="container1" style="width:70%; height:400px;">
+
+</div>
+<script type="text/javascript">   
+$("#loading-div-background").css({ opacity: 0.7 });
+
+$("#query").click(function() {  
+
+  $("#loading-div-background").show();
+  $("#container1").hide();
+  var plot_type = $('input:checkbox[name=plot_type]:checked').val();
+  var qu = {"plot_type":plot_type}
+  $.ajax({
+    type: "POST",
+    async:true,
+    contentType: "application/json; charset=utf-8",
+    url: "/query",
+    data: JSON.stringify(qu),
+    success: function (data) {     
+     var graph = $("#container1");
+     graph.html(data);   
+     $("#loading-div-background").hide();      
+     $("#container1").show();
+   },
+   dataType: "html"
+ });
+});
+</script>
+{% endblock %}

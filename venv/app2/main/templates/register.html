@@ -1,0 +1,83 @@
+<!-- extend base layout -->
+{% extends "layout.html" %}
+{% block content %}
+  <form action="" method=post class="form-horizontal">
+    <h2>Sign up for Investengine</h2>
+    <div class="control-group">
+        <div class="controls">
+          <input type="text" id="nickname" name="nickname" class="input-xlarge"
+            placeholder="Enter Username" value="{{ request.form.nickname }}"
+            required>
+        </div>
+    </div>
+ 
+    <div class="control-group">
+        <div class="controls">
+          <input type="password" id="password" name="password" class="input-xlarge"
+            placeholder="Enter Password" value="{{ request.form.password }}"
+            required>
+        </div>
+    </div>
+ 
+    <div class="control-group">
+        <div class="controls">
+          <input type="email" id="email" name="email" class="input-xlarge"
+            placeholder="Enter Email" value="{{ request.form.email }}"
+            required>
+        </div>
+    </div>
+ 
+    <div class="control-group">
+        <div class="controls">
+          <input type="text" id="age" name="age" class="input-xlarge"
+            placeholder="Enter Age" value="{{ request.form.age }}"
+            required>
+        </div>
+    </div>
+ 
+  
+    <div class="control-group">
+        <div class="controls">
+          <input type="text" id="address" name="address" class="input-xlarge"
+            placeholder="Enter Address" value="{{ request.form.address }}"
+            required>
+        </div>
+    </div>
+    
+     
+    <div class="control-group">
+        <div class="controls">
+          <input type="text" id="county" name="county" class="input-xlarge"
+            placeholder="Enter County" value="{{ request.form.county }}"
+            required>
+        </div>
+    </div>
+    
+     
+    <div class="control-group">
+        <div class="controls">
+          <input type="text" id="constituency" name="constituency" class="input-xlarge"
+            placeholder="Enter constituencyl" value="{{ request.form.constituency }}"
+            required>
+        </div>
+    </div>
+    
+     
+    <div class="control-group">
+        <div class="controls">
+          <input type="text" id="ward" name="ward" class="input-xlarge"
+            placeholder="Enter ward" value="{{ request.form.ward }}"
+            required>
+        </div>
+    </div>
+    
+     
+ 
+    
+    <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn btn-success">Signup</button>
+        </div>
+    </div>
+  </form>
+{% endblock %}

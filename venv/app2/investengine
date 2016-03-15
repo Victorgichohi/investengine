@@ -1,0 +1,9 @@
+server {
+    listen 80;
+    server_name 46.101.142.90;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass http://unix:/home/admin/investengine/investengine.sock;
+    }
+}

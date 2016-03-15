@@ -1,0 +1,32 @@
+<!-- extend base layout -->
+{% extends "layout.html" %}
+
+{% block content %}
+
+    {% include 'flash.html' %}
+    <div class="well">
+        <h3></h3>
+            <form action="" method=post class="form-horizontal">
+               <h2>Sign in to Invest Engine </h2>
+               <div class="control-group">
+                   <div class="controls">
+                     <input type="text" id="nickname" name="nickname" class="input-xlarge"
+                       placeholder="Enter Username" required>
+                   </div>
+               </div>
+            
+               <div class="control-group">
+                   <div class="controls">
+                     <input type="password" id="password" name="password" class="input-xlarge"
+                       placeholder="Enter Password" required>
+                   </div>
+               </div>
+            
+               <div class="control-group">
+                   <div class="controls">
+                     <button type="submit" class="btn btn-success">Sign in</button>
+                   </div>
+               </div>
+             </form>
+    </div>
+{% endblock %}
